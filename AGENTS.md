@@ -28,3 +28,8 @@ use the editor.
   own key and store it in Secrets.
 - **Secrets.** Lovable manages them. Do not put secret values in the repo.
 <!-- LOVABLE:END -->
+
+## Project architecture
+
+- Keep business identity, published catalogue structure and commercial policy in centralized typed configuration until the admin-managed content system is built; this avoids inconsistent company details and payment rules.
+- Select Vercel's Nitro preset only for Vercel builds and retain the existing Lovable preview preset; this keeps both deployment targets functional without duplicating the app.
