@@ -1,12 +1,23 @@
-# [Company Name] — Official Website
+# [Company Name] — Official Website (static build)
 
 Static marketing website for a South African business advisory firm, built from the approved
 copy document ("Official Website Copy and Page Content — Business Advisory Firm").
 
+**The public site contains site content only.** Every foundation, process, specification and
+build-planning detail lives in [`docs/`](docs/README.md) — not on the website.
+
 - **Stack:** plain HTML + CSS + a small amount of vanilla JS — no build step, no dependencies.
 - **Design:** corporate colours `#136CFC` `#152641` `#C3F84A` `#E8F4FC`; Libre Baskerville
   headlines + Montserrat body; editorial, structured layouts.
-- **Hosting:** designed for GitHub Pages (serve from the root of this branch).
+- **Rendered by:** `generator/build_website.py` — `python3 generator/build_website.py <output-dir>`
+  regenerates every page, the sitemap, robots.txt and this documentation.
+
+## Branches
+
+| Branch | Contents | Managed by |
+|---|---|---|
+| `static-site` | This static website + documentation (branch root = web root) | The generator script |
+| `main` | Lovable-built React application, built from the same copy document | Lovable editor — changes there commit straight to `main`; avoid hand edits |
 
 ## Pages
 
@@ -16,36 +27,31 @@ copy document ("Official Website Copy and Page Content — Business Advisory Fir
 | Divisions | `business-intelligence-performance-analytics.html`, `economic-commercial-intelligence.html`, `operational-risk-process-controls.html` |
 | Services (9) | `business-data-diagnostic.html`, `business-intelligence-dashboard.html`, `monthly-performance-reporting.html`, `competitor-intelligence-snapshot.html`, `pricing-profitability-review.html`, `supplier-cost-watch.html`, `operational-risk-register.html`, `process-controls-diagnostic.html`, `compliance-evidence-organiser.html` |
 | Legal (structure only) | `privacy-policy.html`, `website-terms.html`, `client-service-terms.html`, `publication-licence.html`, `refund-policy.html` |
-| Other | `client-portal.html`, `404.html`, `sitemap.xml`, `robots.txt` |
+| Other | `client-portal.html` (sign-in stub, noindex), `404.html`, `sitemap.xml`, `robots.txt`, `docs/`, `generator/` |
 
-## Before go-live — required replacements
+## Documentation
 
-1. **Company name:** the copy document did not provide the firm's name, so every occurrence of
-   `[Company Name]` is an explicit placeholder. Find-and-replace it across all HTML files
-   (or change `COMPANY_NAME` in the generator and re-run).
-2. **Contact details:** replace `[Company Email]` and `[Company Telephone]` in the footer and
-   contact page once confirmed.
-3. **Legal pages:** the five policy pages intentionally contain only their required section
-   structure — no draft legal wording. Final policies must be reviewed and approved before being
-   published (per the content rules, §16 and §19.18).
-4. **Contact form:** client-side validation works and shows the approved confirmation message;
-   the form does not yet transmit to a mailbox or backend. The page states this honestly in
-   pre-launch mode. Connect it to your email/backend and remove that note.
-5. **Client portal:** `client-portal.html` is a visible stub with a pre-launch notice; the real
-   portal is a separate authenticated interface (copy document §14).
-6. **Research publications / insights:** both use the approved empty-state copy until real,
-   approved products and articles exist.
+| File | Contents |
+|---|---|
+| `docs/content-source-map.md` | Traceability: every copy-document section → where it lives now |
+| `docs/website-map.md` | Page inventory, navigation model, deferred items |
+| `docs/client-portal-spec.md` | Client portal specification (§14) — separate authenticated interface |
+| `docs/internal-administration.md` | Internal administration specification (§15) — internal only |
+| `docs/legal-page-structures.md` | Required policy-page structure (§16) + finalisation requirements |
+| `docs/cta-library.md` | Call-to-action library (§17) |
+| `docs/seo-content.md` | Search engine titles and descriptions (§18) |
+| `docs/implementation-rules.md` | Content and implementation rules (§19) + build compliance |
+| `docs/commercial-policy.md` | Payment policy and pricing rules |
+| `docs/deployment.md` | Hosting, branches, go-live checklist |
 
-## Deployment (GitHub Pages)
+## Before go-live
 
-1. Push this repository to GitHub under `Refilwe-Molapisi/project-blueprint`.
-2. Repository → Settings → Pages → Source: "Deploy from a branch" → Branch: `main` / root → Save.
-3. The site will be served at `https://refilwe-molapisi.github.io/project-blueprint/`.
+1. Replace `[Company Name]`, `[Company Email]`, `[Company Telephone]` (constants at the top of
+   the generator), per rule 19.4 — never invent these.
+2. Connect the contact form to a mailbox/backend (currently client-side validation and the
+   approved confirmation only — see `docs/deployment.md`).
+3. Finalise the five policy pages after review and approval (`docs/legal-page-structures.md`).
+4. Build the client portal as a separate authenticated interface (`docs/client-portal-spec.md`).
+5. Publications and insights remain in approved empty states until real, approved content exists.
 
-## Regenerating the site
-
-The whole site is produced by one script (kept with the working files):
-
-    python3 scripts/build_website.py
-
-Edit page content in the script, re-run, and commit the output.
+Deployment: see `docs/deployment.md`.

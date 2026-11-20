@@ -1,4 +1,5 @@
 User-agent: *
 Allow: /
+Disallow: /docs/
 
 Sitemap: https://refilwe-molapisi.github.io/project-blueprint/sitemap.xml
