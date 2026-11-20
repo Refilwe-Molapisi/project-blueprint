@@ -26,20 +26,22 @@ CSS = r"""
   --ink:#152641; --muted:#4A5A72; --line:#D7E5F2; --white:#FFFFFF;
   --serif:"Libre Baskerville",Georgia,"Times New Roman",serif;
   --sans:"Montserrat","Segoe UI",Arial,sans-serif;
-  --shadow:0 10px 30px rgba(21,38,65,.08);
+  --shadow:0 4px 16px rgba(21,38,65,.06);
   --radius:14px;
 }
 *{margin:0;padding:0;box-sizing:border-box}
-html{scroll-behavior:smooth}
-body{font-family:var(--sans);color:var(--ink);background:var(--white);line-height:1.65;
+@media (prefers-reduced-motion:no-preference){html{scroll-behavior:smooth}}
+body{font-family:var(--sans);color:var(--ink);background:var(--white);line-height:1.7;
   font-size:clamp(15px,1.05vw + 9px,17px);-webkit-font-smoothing:antialiased}
 img,svg{max-width:100%;height:auto}
 a{color:var(--blue);text-decoration:none}
 a:hover{text-decoration:underline}
+a:focus-visible,button:focus-visible,summary:focus-visible,input:focus-visible,
+select:focus-visible,textarea:focus-visible{outline:2.5px solid var(--blue);outline-offset:3px;border-radius:4px}
 h1,h2,h3,.serif{font-family:var(--serif);font-weight:700;line-height:1.22;color:var(--navy)}
-h1{font-size:clamp(30px,4.6vw,54px);letter-spacing:-.01em}
-h2{font-size:clamp(24px,3vw,36px)}
-h3{font-size:clamp(18px,1.6vw,22px)}
+h1{font-size:clamp(30px,4.6vw,52px);letter-spacing:-.01em}
+h2{font-size:clamp(24px,3vw,34px)}
+h3{font-size:clamp(18px,1.6vw,21px)}
 .wrap{max-width:1180px;margin:0 auto;padding:0 clamp(18px,4vw,40px)}
 .skip{position:absolute;left:-999px;top:0;background:var(--lime);color:var(--navy);
   padding:10px 16px;font-weight:700;z-index:200;border-radius:0 0 8px 0}
@@ -48,16 +50,16 @@ h3{font-size:clamp(18px,1.6vw,22px)}
 /* ── Header ── */
 header.site{position:sticky;top:0;z-index:100;background:rgba(255,255,255,.96);
   backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
-.navrow{display:flex;align-items:center;gap:22px;min-height:72px}
+.navrow{display:flex;align-items:center;gap:clamp(12px,1.6vw,22px);min-height:72px}
 .brand{display:flex;align-items:center;gap:11px;font-family:var(--serif);font-weight:700;
-  font-size:clamp(17px,1.4vw,21px);color:var(--navy);text-decoration:none}
+  font-size:clamp(17px,1.4vw,21px);color:var(--navy);text-decoration:none;white-space:nowrap}
 .brand:hover{text-decoration:none}
 .mark{width:38px;height:38px;border-radius:9px;background:var(--navy);flex:0 0 38px;
   display:grid;place-items:center}
 .brand small{display:block;font-family:var(--sans);font-weight:600;font-size:9.5px;
   letter-spacing:.16em;color:var(--muted);text-transform:uppercase}
-nav.main{margin-left:auto;display:flex;align-items:center;gap:clamp(10px,1.6vw,26px)}
-nav.main a{color:var(--navy);font-weight:600;font-size:14.5px;padding:6px 2px;position:relative}
+nav.main{margin-left:auto;display:flex;align-items:center;gap:clamp(8px,1.2vw,18px)}
+nav.main a{color:var(--navy);font-weight:600;font-size:13.5px;padding:6px 2px;position:relative;white-space:nowrap}
 nav.main a:hover{text-decoration:none;color:var(--blue)}
 nav.main a[aria-current="page"]{color:var(--blue)}
 nav.main a[aria-current="page"]::after{content:"";position:absolute;left:0;right:0;bottom:-4px;
@@ -100,8 +102,9 @@ nav.main a[aria-current="page"]::after{content:"";position:absolute;left:0;right
   position:relative;overflow:hidden}
 .hero .eyebrow{color:var(--lime)}
 .hero h1{color:#fff;max-width:19ch}
-.hero p.lead{color:#C9D8EA;max-width:60ch;font-size:clamp(15.5px,1.3vw,18px);margin:20px 0 30px}
-.hero .cta{display:flex;flex-wrap:wrap;gap:14px}
+.hero p.lead{color:#C9D8EA;max-width:60ch;font-size:clamp(15.5px,1.3vw,18px)}
+.hero .lead+.lead{margin-top:14px}
+.hero .cta{display:flex;flex-wrap:wrap;gap:14px;margin-top:32px}
 .hero-viz{position:absolute;right:-40px;top:0;bottom:0;width:min(46vw,620px);opacity:.5;
   pointer-events:none}
 .crumbs{font-size:12.5px;color:#9FB2CC;margin-bottom:22px;letter-spacing:.04em}
@@ -109,28 +112,28 @@ nav.main a[aria-current="page"]::after{content:"";position:absolute;left:0;right
 
 /* ── Eyebrow / sections ── */
 .eyebrow{display:inline-flex;align-items:center;gap:10px;font-weight:700;font-size:11.5px;
-  letter-spacing:.18em;text-transform:uppercase;color:var(--blue);margin-bottom:16px}
+  letter-spacing:.18em;text-transform:uppercase;color:var(--blue);margin-bottom:14px}
 .eyebrow::before{content:"";width:26px;height:2px;background:var(--lime)}
-section.block{padding:clamp(52px,7vw,96px) 0}
+section.block{padding:clamp(48px,7vw,100px) 0}
 section.tint{background:var(--tint)}
 section.dark{background:var(--navy);color:#fff}
 section.dark h2,section.dark h3{color:#fff}
 section.dark p{color:#C9D8EA}
-.sec-head{max-width:760px;margin-bottom:clamp(28px,4vw,48px)}
+.sec-head{max-width:720px;margin-bottom:clamp(30px,4.5vw,52px)}
 .sec-head p.intro{margin-top:14px;color:var(--muted);font-size:clamp(15px,1.2vw,17px)}
 section.dark .sec-head p.intro{color:#C9D8EA}
 
 /* ── Grids & cards ── */
-.grid{display:grid;gap:clamp(16px,2vw,26px)}
+.grid{display:grid;gap:clamp(18px,2.2vw,28px)}
 .g2{grid-template-columns:repeat(2,1fr)}
 .g3{grid-template-columns:repeat(3,1fr)}
 .g4{grid-template-columns:repeat(2,1fr)}
 .card{background:#fff;border:1px solid var(--line);border-radius:var(--radius);
-  padding:clamp(22px,2.4vw,32px);box-shadow:var(--shadow);display:flex;flex-direction:column;gap:12px}
+  padding:clamp(22px,2.4vw,32px);box-shadow:var(--shadow);display:flex;flex-direction:column;gap:13px}
 .card .num{font-family:var(--serif);font-size:15px;font-weight:700;color:var(--navy);
   background:var(--lime);width:44px;height:44px;border-radius:10px;display:grid;place-items:center}
 .card h3{font-size:clamp(17px,1.5vw,20px)}
-.card p{color:var(--muted);font-size:14.5px}
+.card p{color:var(--muted);font-size:15px}
 .card .tagline{font-weight:700;color:var(--ink);font-size:14.5px}
 .cardlink{margin-top:auto;font-weight:700;font-size:13.5px;color:var(--blue);
   display:inline-flex;gap:7px;align-items:center}
@@ -296,31 +299,50 @@ footer.site .base{border-top:1px solid rgba(255,255,255,.14);padding:20px 0 26px
 }
 
 /* ── Responsive ── */
+@media (min-width:1181px) and (max-width:1280px){
+  .loginlink{display:none}
+}
 @media (max-width:1020px){
   .two-col,.split{grid-template-columns:1fr}
   footer.site .top{grid-template-columns:1fr 1fr}
   .g4{grid-template-columns:1fr 1fr}
 }
-@media (max-width:900px){
+@media (max-width:1180px){
+  .g3{grid-template-columns:1fr 1fr}
+  .stat-row{gap:14px}
+  .stat{padding:14px 16px}
+  .stat b{font-size:clamp(19px,3vw,26px)}
+}
+@media (max-width:1180px){
   .menu-toggle{display:inline-flex}
   nav.main{display:none;position:absolute;top:72px;left:0;right:0;background:#fff;
     border-bottom:1px solid var(--line);flex-direction:column;align-items:stretch;
-    padding:14px clamp(18px,4vw,40px) 22px;gap:6px;box-shadow:var(--shadow)}
+    padding:14px clamp(18px,4vw,40px) 24px;gap:6px;box-shadow:var(--shadow)}
   nav.main.open{display:flex}
-  nav.main a{padding:10px 4px;font-size:15px}
+  nav.main a{padding:12px 4px;font-size:15px}
   nav.main a[aria-current="page"]::after{bottom:2px}
   .dropdown-menu{position:static;transform:none;box-shadow:none;border:none;padding:0 0 4px 14px}
   .navcta{flex-direction:column;align-items:stretch;margin-left:0;gap:8px}
   .hero-viz{display:none}
+}
+@media (max-width:720px){
   .stat-row{grid-template-columns:1fr}
 }
 @media (max-width:640px){
   .g2,.g3,.g4,.frow{grid-template-columns:1fr}
   .cta-band{grid-template-columns:1fr}
   .cta-band .cta{flex-direction:row;flex-wrap:wrap}
-  footer.site .top{grid-template-columns:1fr}
-  .svc-item{grid-template-columns:1fr;gap:10px}
+  footer.site .top{grid-template-columns:1fr;gap:30px}
+  .svc-item{grid-template-columns:1fr;gap:12px}
   .svc-item .num{width:44px;height:44px}
+  section.block{padding:clamp(44px,10vw,60px) 0}
+  .pagehero{padding:clamp(44px,9vw,60px) 0}
+  .hero{padding:clamp(52px,11vw,72px) 0 clamp(48px,10vw,64px)}
+  .crumbs{margin-bottom:16px}
+}
+@media (max-width:400px){
+  .brand small{display:none}
+  .wrap{padding:0 16px}
 }
 """
 
@@ -538,7 +560,7 @@ def hero_home():
     <p class="lead">Businesses make decisions every day about performance, pricing, markets,
     operations and growth. The quality of those decisions depends on how well the underlying
     information is understood.</p>
-    <p class="lead" style="margin-top:-14px">{COMPANY_NAME} provides business intelligence,
+    <p class="lead">{COMPANY_NAME} provides business intelligence,
     economic and commercial research, performance analysis and operational advisory services
     to help businesses make more informed decisions.</p>
     <div class="cta">
