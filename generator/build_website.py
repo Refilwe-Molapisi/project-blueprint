@@ -2042,8 +2042,13 @@ build-planning detail lives in [`docs/`](docs/README.md) — not on the website.
 
 | Branch | Contents | Managed by |
 |---|---|---|
-| `static-site` | This static website + documentation (branch root = web root) | The generator script |
-| `main` | Lovable-built React application, built from the same copy document | Lovable editor — changes there commit straight to `main`; avoid hand edits |
+| `main` | Default branch — static website + documentation at the root (web root) **and** the Lovable React app source (`src/`, `supabase/`, `public/`, config files) from the original build | Generator (site files) + Lovable editor (React app) |
+| `static-site` | Same static website + documentation, generator-managed; merged into `main` | The generator script |
+
+The static site and the Lovable app are built from the same copy document and coexist on
+`main`: the site files (`*.html`, `assets/`, `docs/`, `generator/`, `sitemap.xml`,
+`robots.txt`) sit at the root, the React app lives in its own files (`src/`, `supabase/`,
+`public/`, config). GitHub Pages should deploy from `main`, folder `/`.
 
 ## Pages
 
@@ -2503,23 +2508,28 @@ GitHub: `Refilwe-Molapisi/project-blueprint` (private).
 
 | Branch | Contents | Managed by |
 |---|---|---|
-| `main` | Lovable-built React application, built from the same copy document | Lovable editor — changes there commit straight to `main`; avoid hand edits. Note: that app still shows foundation sections (architecture, data & access, integrations, launch plan); remove them via the Lovable editor |
-| `static-site` | The complete static website + this documentation (branch root = web root) | `generator/build_website.py` |
+| `main` | Default branch: static website + documentation at the root, plus the Lovable React app source (`src/`, `supabase/`, `public/`, config) | Generator (site files); Lovable editor (React app — note: that app still shows foundation sections such as architecture, data & access, integrations and launch plan; remove them via the Lovable editor) |
+| `static-site` | Same static website + documentation, generator-managed; merged into `main` | `generator/build_website.py` |
 
 ## Hosting options for the static site
 
-1. **GitHub Pages** — Settings → Pages → Deploy from a branch → Branch `static-site`, folder
+1. **GitHub Pages** — Settings → Pages → Deploy from a branch → Branch `main`, folder
    `/ (root)` → Save. Notes:
    - The automation token used for pushing can create branches and push code but cannot change
      Pages settings (fine-grained PAT permission), so this toggle is a one-time manual step.
    - On a free plan, GitHub Pages cannot serve a private repository — make the repository public
      or use option 2.
+   - **Before making the repository public or enabling Pages on `main`:** `main` also contains
+     the Lovable app's committed `.env` file, and Pages serves every file in the branch — `.env`
+     would be downloadable at its URL. The values are publishable/anon keys, but the clean fix is
+     to remove `.env` from the repository (keep the values in Lovable/Vercel environment
+     settings) first.
    - Expected URL: `https://refilwe-molapisi.github.io/project-blueprint/` — the canonical tags
      on every page already point there. Update the `SITE_URL` constant in the generator when the
      final domain is known and regenerate.
 2. **Vercel** — import the repository, framework preset "Other", root directory `/`, production
-   branch `static-site`. Works with private repositories. The Lovable app on `main` is intended
-   to deploy through Vercel as well, per its own README.
+   branch `main`. Works with private repositories. The Lovable React app can be deployed the
+   same way using its own build command, per its README.
 
 `docs/` is repository documentation: it is not linked anywhere on the site and `robots.txt`
 disallows `/docs/`. If it must also be unreachable by direct URL, deploy with a build step that
@@ -2527,6 +2537,9 @@ copies only the web-root files (or keep the repository private and use Vercel).
 
 ## Go-live checklist
 
+0. Remove the committed `.env` from the repository if the site will be served publicly from
+   `main` (Pages serves every branch file); keep its values in Lovable/Vercel environment
+   settings.
 1. Replace `[Company Name]`, `[Company Email]`, `[Company Telephone]` (constants at the top of
    the generator) — rule 19.4.
 2. Finalise the five policy pages after review and approval — see legal-page-structures.md.
