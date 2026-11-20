@@ -7,8 +7,8 @@ copy document ("Official Website Copy and Page Content — Business Advisory Fir
 build-planning detail lives in [`docs/`](docs/README.md) — not on the website.
 
 - **Stack:** plain HTML + CSS + a small amount of vanilla JS — no build step, no dependencies.
-- **Design:** corporate colours `#136CFC` `#152641` `#C3F84A` `#E8F4FC`; Libre Baskerville
-  headlines + Montserrat body; editorial, structured layouts.
+- **Design:** corporate colours `#136CFC` `#152641` `#C3F84A` `#E8F4FC`; Montserrat display &
+  body (Baskerville retained as a token); flat editorial layouts with hairline rules.
 - **Rendered by:** `generator/build_website.py` — `python3 generator/build_website.py <output-dir>`
   regenerates every page, the sitemap, robots.txt and this documentation.
 

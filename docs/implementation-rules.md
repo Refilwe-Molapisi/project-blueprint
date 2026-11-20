@@ -3,7 +3,8 @@
 Source: copy document §19. These rules govern every page of the public site.
 
 1. **Corporate colours** `#136CFC`, `#152641`, `#C3F84A`, `#E8F4FC` — used throughout `assets/style.css`.
-2. **Typography** — Libre Baskerville headlines, Montserrat body, per the approved system.
+2. **Typography** — Montserrat display & body per the approved system (Baskerville retained as
+   a token); no additional typefaces.
 3. **Visual direction** — editorial, structured, professional; consistent system, distinct layouts.
 4. **No invented identity** — the firm's name, registration details, address and contact
    information are placeholders ([Company Name], [Company Email], [Company Telephone]) until
