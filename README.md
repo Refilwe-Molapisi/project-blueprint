@@ -19,7 +19,8 @@ build-planning detail lives in [`docs/`](docs/README.md) — not on the website.
 | `main` | Default branch — this static website + documentation (web root) | The generator script |
 | `static-site` | Same content, generator-managed mirror of `main` | The generator script |
 
-GitHub Pages should deploy from `main`, folder `/`.
+Deploy on Vercel — configured in the repository (`vercel.json` + `scripts/build-vercel.sh`);
+see docs/deployment.md. GitHub Pages also works: deploy from `main`, folder `/`.
 
 ## Pages
 
@@ -29,7 +30,7 @@ GitHub Pages should deploy from `main`, folder `/`.
 | Divisions | `business-intelligence-performance-analytics.html`, `economic-commercial-intelligence.html`, `operational-risk-process-controls.html` |
 | Services (9) | `business-data-diagnostic.html`, `business-intelligence-dashboard.html`, `monthly-performance-reporting.html`, `competitor-intelligence-snapshot.html`, `pricing-profitability-review.html`, `supplier-cost-watch.html`, `operational-risk-register.html`, `process-controls-diagnostic.html`, `compliance-evidence-organiser.html` |
 | Legal (structure only) | `privacy-policy.html`, `website-terms.html`, `client-service-terms.html`, `publication-licence.html`, `refund-policy.html` |
-| Other | `client-portal.html` (sign-in stub, noindex), `404.html`, `sitemap.xml`, `robots.txt`, `docs/`, `generator/` |
+| Other | `client-portal.html` (sign-in stub, noindex), `404.html`, `sitemap.xml`, `robots.txt`, `docs/`, `generator/`, `vercel.json`, `scripts/build-vercel.sh` (Vercel deployment) |
 
 ## Documentation
 

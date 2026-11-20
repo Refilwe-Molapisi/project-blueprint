@@ -2045,7 +2045,8 @@ build-planning detail lives in [`docs/`](docs/README.md) — not on the website.
 | `main` | Default branch — this static website + documentation (web root) | The generator script |
 | `static-site` | Same content, generator-managed mirror of `main` | The generator script |
 
-GitHub Pages should deploy from `main`, folder `/`.
+Deploy on Vercel — configured in the repository (`vercel.json` + `scripts/build-vercel.sh`);
+see docs/deployment.md. GitHub Pages also works: deploy from `main`, folder `/`.
 
 ## Pages
 
@@ -2055,7 +2056,7 @@ GitHub Pages should deploy from `main`, folder `/`.
 | Divisions | `business-intelligence-performance-analytics.html`, `economic-commercial-intelligence.html`, `operational-risk-process-controls.html` |
 | Services (9) | `business-data-diagnostic.html`, `business-intelligence-dashboard.html`, `monthly-performance-reporting.html`, `competitor-intelligence-snapshot.html`, `pricing-profitability-review.html`, `supplier-cost-watch.html`, `operational-risk-register.html`, `process-controls-diagnostic.html`, `compliance-evidence-organiser.html` |
 | Legal (structure only) | `privacy-policy.html`, `website-terms.html`, `client-service-terms.html`, `publication-licence.html`, `refund-policy.html` |
-| Other | `client-portal.html` (sign-in stub, noindex), `404.html`, `sitemap.xml`, `robots.txt`, `docs/`, `generator/` |
+| Other | `client-portal.html` (sign-in stub, noindex), `404.html`, `sitemap.xml`, `robots.txt`, `docs/`, `generator/`, `vercel.json`, `scripts/build-vercel.sh` (Vercel deployment) |
 
 ## Documentation
 
@@ -2510,21 +2511,36 @@ GitHub: `Refilwe-Molapisi/project-blueprint` (private).
 
 ## Hosting options for the static site
 
-1. **GitHub Pages** — Settings → Pages → Deploy from a branch → Branch `main`, folder
-   `/ (root)` → Save. Notes:
+1. **Vercel (primary — configured in the repository)** — the repository ships
+   `vercel.json` and `scripts/build-vercel.sh`, so importing the repo is all the setup there
+   is. No environment variables, no framework, no Node build:
+   - On Vercel: Add New… → Project → import `Refilwe-Molapisi/project-blueprint`. The
+     framework preset "Other" is detected automatically; leave Build & Output Settings on the
+     defaults — they are overridden by `vercel.json` (build command `sh scripts/build-vercel.sh`,
+     output directory `dist/`). Deploy.
+   - The build script assembles only the web-root files into `dist/`: all 26 pages (including
+     `index.html` and `404.html` — Vercel serves `404.html` automatically for unknown paths),
+     `assets/`, `robots.txt` and `sitemap.xml`.
+   - Deliberately NOT deployed: `docs/`, `generator/`, `README.md` and the build script itself.
+     `docs/` is internal documentation (implementation rules, internal-administration and
+     client-portal specs) — on a public deployment URL, the `robots.txt` disallow alone would
+     not keep it from being fetched directly. If the documentation should be online too, add a
+     `docs/` copy in `scripts/build-vercel.sh`.
+   - `vercel.json` adds security headers to every response (`X-Content-Type-Options`,
+     `X-Frame-Options`, `Referrer-Policy`, `Permissions-Policy`) and one-day browser caching
+     for `/assets/`. Links keep their `.html` form (`cleanUrls` stays off) so the generated
+     hrefs, the sitemap and the canonical tags all resolve without redirects.
+   - After the first deploy, Vercel assigns a `*.vercel.app` domain. Once the final domain is
+     chosen, update `SITE_URL` in the generator and regenerate — see checklist item 7.
+2. **GitHub Pages (alternative)** — Settings → Pages → Deploy from a branch → Branch `main`,
+   folder `/ (root)` → Save. Notes:
    - The automation token used for pushing can create branches and push code but cannot change
      Pages settings (fine-grained PAT permission), so this toggle is a one-time manual step.
-   - On a free plan, GitHub Pages cannot serve a private repository — make the repository public
-     or use option 2.
+   - Pages serves every file in the branch — including `docs/` and `generator/` — so this
+     option would publish the repository documentation at direct URLs as well.
    - Expected URL: `https://refilwe-molapisi.github.io/project-blueprint/` — the canonical tags
-     on every page already point there. Update the `SITE_URL` constant in the generator when the
-     final domain is known and regenerate.
-2. **Vercel** — import the repository, framework preset "Other", root directory `/`, production
-   branch `main`. Works with private repositories.
-
-`docs/` is repository documentation: it is not linked anywhere on the site and `robots.txt`
-disallows `/docs/`. If it must also be unreachable by direct URL, deploy with a build step that
-copies only the web-root files (or keep the repository private and use Vercel).
+     on every page currently point there. Update the `SITE_URL` constant in the generator when
+     the final domain is known and regenerate.
 
 ## Go-live checklist
 
@@ -2540,14 +2556,60 @@ copies only the web-root files (or keep the repository private and use Vercel).
    rules 19.7 and 19.8.
 6. Analytics and cookies: none implemented; add a cookie policy only when technologies are
    introduced.
-7. Custom domain (optional): point DNS, update `SITE_URL` in the generator, regenerate, re-push.
+7. Domain: after the Vercel project exists, set `SITE_URL` in the generator to the final
+   address (the `*.vercel.app` domain or a custom domain), regenerate and re-push — canonical
+   tags, Open Graph URLs and the sitemap derive from it. For a custom domain, also add it under
+   the Vercel project's Settings → Domains and point DNS.
 
 ## Regenerating the site
 
     python3 generator/build_website.py <output-dir>
 
-Every page, `assets/`, `sitemap.xml`, `robots.txt`, `README.md` and this `docs/` folder are
-rewritten from the script. Replace the corresponding files in this branch and commit.
+Every page, `assets/`, `sitemap.xml`, `robots.txt`, `README.md`, this `docs/` folder,
+`vercel.json` and `scripts/build-vercel.sh` are rewritten from the script. Replace the
+corresponding files in this branch and commit.
+"""
+
+VERCEL_JSON = """{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "outputDirectory": "dist",
+  "buildCommand": "sh scripts/build-vercel.sh",
+  "cleanUrls": false,
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        { "key": "X-Content-Type-Options", "value": "nosniff" },
+        { "key": "X-Frame-Options", "value": "SAMEORIGIN" },
+        { "key": "Referrer-Policy", "value": "strict-origin-when-cross-origin" },
+        { "key": "Permissions-Policy", "value": "camera=(), microphone=(), geolocation=()" }
+      ]
+    },
+    {
+      "source": "/assets/(.*)",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, max-age=86400" }
+      ]
+    }
+  ]
+}
+"""
+
+VERCEL_BUILD = """#!/bin/sh
+# Vercel build step: assembles the deployable web root into dist/.
+#
+# The repository root also holds repository-only files — docs/ (internal
+# documentation), generator/ (site source), README.md and this script. Those
+# are deliberately NOT deployed; only the website itself goes into dist/.
+# See docs/deployment.md. To publish the docs too, add a docs/ copy below.
+set -eu
+
+rm -rf dist
+mkdir -p dist
+
+cp ./*.html dist/          # all pages, including index.html and 404.html
+cp ./robots.txt ./sitemap.xml dist/
+cp -R ./assets dist/       # style.css, site.js, favicon.svg
 """
 
 
@@ -2558,7 +2620,11 @@ def main():
     with open(f"{OUT}/assets/site.js", "w") as f: f.write(JS)
     with open(f"{OUT}/assets/favicon.svg", "w") as f: f.write(FAVICON)
     with open(f"{OUT}/.gitignore", "w") as f:
-        f.write(".DS_Store\nThumbs.db\nsite-output/\n*.log\n")
+        f.write(".DS_Store\nThumbs.db\nsite-output/\ndist/\n*.log\n")
+    os.makedirs(f"{OUT}/scripts", exist_ok=True)
+    with open(f"{OUT}/vercel.json", "w") as f: f.write(VERCEL_JSON)
+    with open(f"{OUT}/scripts/build-vercel.sh", "w") as f: f.write(VERCEL_BUILD)
+    os.chmod(f"{OUT}/scripts/build-vercel.sh", 0o755)
     for fname, (title, desc, body, active, extra_head) in PAGES.items():
         with open(f"{OUT}/{fname}", "w") as f:
             f.write(shell(fname, title, desc, body, active, extra_head=extra_head))
