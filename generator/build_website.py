@@ -2682,6 +2682,7 @@ cp -R ./assets dist/       # style.css, site.js, favicon.svg
 
 
 def main():
+    os.umask(0o022)  # deterministic file modes (644) regardless of environment
     os.makedirs(f"{OUT}/assets", exist_ok=True)
     os.makedirs(f"{OUT}/docs", exist_ok=True)
     with open(f"{OUT}/assets/style.css", "w") as f: f.write(CSS)
