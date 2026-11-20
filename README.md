@@ -16,13 +16,10 @@ build-planning detail lives in [`docs/`](docs/README.md) — not on the website.
 
 | Branch | Contents | Managed by |
 |---|---|---|
-| `main` | Default branch — static website + documentation at the root (web root) **and** the Lovable React app source (`src/`, `supabase/`, `public/`, config files) from the original build | Generator (site files) + Lovable editor (React app) |
-| `static-site` | Same static website + documentation, generator-managed; merged into `main` | The generator script |
+| `main` | Default branch — this static website + documentation (web root) | The generator script |
+| `static-site` | Same content, generator-managed mirror of `main` | The generator script |
 
-The static site and the Lovable app are built from the same copy document and coexist on
-`main`: the site files (`*.html`, `assets/`, `docs/`, `generator/`, `sitemap.xml`,
-`robots.txt`) sit at the root, the React app lives in its own files (`src/`, `supabase/`,
-`public/`, config). GitHub Pages should deploy from `main`, folder `/`.
+GitHub Pages should deploy from `main`, folder `/`.
 
 ## Pages
 

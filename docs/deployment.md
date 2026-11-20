@@ -6,8 +6,8 @@ GitHub: `Refilwe-Molapisi/project-blueprint` (private).
 
 | Branch | Contents | Managed by |
 |---|---|---|
-| `main` | Default branch: static website + documentation at the root, plus the Lovable React app source (`src/`, `supabase/`, `public/`, config) | Generator (site files); Lovable editor (React app — note: that app still shows foundation sections such as architecture, data & access, integrations and launch plan; remove them via the Lovable editor) |
-| `static-site` | Same static website + documentation, generator-managed; merged into `main` | `generator/build_website.py` |
+| `main` | Default branch: this static website + documentation (web root) | `generator/build_website.py` |
+| `static-site` | Same content, generator-managed mirror of `main` | `generator/build_website.py` |
 
 ## Hosting options for the static site
 
@@ -17,17 +17,11 @@ GitHub: `Refilwe-Molapisi/project-blueprint` (private).
      Pages settings (fine-grained PAT permission), so this toggle is a one-time manual step.
    - On a free plan, GitHub Pages cannot serve a private repository — make the repository public
      or use option 2.
-   - **Before making the repository public or enabling Pages on `main`:** `main` also contains
-     the Lovable app's committed `.env` file, and Pages serves every file in the branch — `.env`
-     would be downloadable at its URL. The values are publishable/anon keys, but the clean fix is
-     to remove `.env` from the repository (keep the values in Lovable/Vercel environment
-     settings) first.
    - Expected URL: `https://refilwe-molapisi.github.io/project-blueprint/` — the canonical tags
      on every page already point there. Update the `SITE_URL` constant in the generator when the
      final domain is known and regenerate.
 2. **Vercel** — import the repository, framework preset "Other", root directory `/`, production
-   branch `main`. Works with private repositories. The Lovable React app can be deployed the
-   same way using its own build command, per its README.
+   branch `main`. Works with private repositories.
 
 `docs/` is repository documentation: it is not linked anywhere on the site and `robots.txt`
 disallows `/docs/`. If it must also be unreachable by direct URL, deploy with a build step that
@@ -35,9 +29,6 @@ copies only the web-root files (or keep the repository private and use Vercel).
 
 ## Go-live checklist
 
-0. Remove the committed `.env` from the repository if the site will be served publicly from
-   `main` (Pages serves every branch file); keep its values in Lovable/Vercel environment
-   settings.
 1. Replace `[Company Name]`, `[Company Email]`, `[Company Telephone]` (constants at the top of
    the generator) — rule 19.4.
 2. Finalise the five policy pages after review and approval — see legal-page-structures.md.
