@@ -22,37 +22,19 @@
 <!-- ========================================================= -->
 <a class="skip" href="#main">Skip to content</a>
 <header class="cleanify-navbar">
-  <!-- 1. Top Utility Bar -->
+  <!-- 1. Top Utility Bar (Client Login only) -->
   <div class="clean-topbar">
     <div class="clean-container clean-topbar-inner">
-      <div class="clean-topbar-left">
-        <a href="tel:[Company Telephone]" class="clean-topbar-item">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
-          </svg>
-          <span>[Company Telephone]</span>
-        </a>
-        <a href="mailto:[Company Email]" class="clean-topbar-item">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <rect width="20" height="16" x="2" y="4" rx="2"/>
-            <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
-          </svg>
-          <span>[Company Email]</span>
-        </a>
-      </div>
-
-      <div class="clean-topbar-right">
-        <a href="client-portal.html" class="clean-topbar-item">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>
-          </svg>
-          <span>Client Login</span>
-        </a>
-      </div>
+      <a href="client-portal.html" class="clean-topbar-item">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>
+        </svg>
+        <span>Client Login</span>
+      </a>
     </div>
   </div>
 
-  <!-- 2. Brand & Search Mid-Bar -->
+  <!-- 2. Brand Mid-Bar -->
   <div class="clean-midbar">
     <div class="clean-container clean-midbar-inner">
       <a href="index.html" class="clean-brand">
@@ -61,20 +43,7 @@
 <path d="M4 19V11M9.5 19V5M15 19v-6M20 19v-9" stroke="#C3F84A" stroke-width="2.6"
  stroke-linecap="round"/></svg></span></span>
         <span class="clean-brand-name">[Company Name]</span>
-        <span class="clean-brand-divider">|</span>
-        <span class="clean-brand-tagline">Business Advisory · Intelligence · Research</span>
       </a>
-
-      <div class="clean-search-box">
-        <input type="text" placeholder="search here" aria-label="Search">
-        <button type="submit" aria-label="Submit search">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-            <circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/>
-          </svg>
-        </button>
-      </div>
-
-      <a class="btn btn-primary btn-sm" href="contact.html">Discuss Your Business Needs</a>
     </div>
   </div>
 
@@ -151,48 +120,29 @@
     padding: 0 20px;
   }
 
-  /* 1. Topbar */
+  /* 1. Topbar (utility: Client Login only) */
   .clean-topbar {
     border-bottom: 1px solid #f0f0f0;
     font-size: 11.5px;
-    color: #e04436;
+    color: #666666;
     padding: 7px 0;
   }
   .clean-topbar-inner {
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-end;
     align-items: center;
-  }
-  .clean-topbar-left, .clean-topbar-right {
-    display: flex;
-    align-items: center;
-    gap: 20px;
   }
   .clean-topbar-item {
     display: inline-flex;
     align-items: center;
     gap: 6px;
-    color: #e04436;
+    color: #666666;
     text-decoration: none;
     font-weight: 500;
   }
   .clean-topbar-item:hover {
-    color: #c02d20;
+    color: #2b2b2b;
     text-decoration: none;
-  }
-  .clean-topbar-right .clean-topbar-item {
-    color: #777777;
-  }
-  .clean-lang-switch {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    color: #e04436;
-    cursor: pointer;
-    font-weight: 500;
-  }
-  .clean-lang-switch .chevron {
-    font-size: 9px;
   }
 
   /* 2. Midbar */
@@ -212,63 +162,11 @@
   .clean-brand:hover {
     text-decoration: none;
   }
-  .clean-brand-circle {
-    display: inline-grid;
-    place-items: center;
-    width: 28px;
-    height: 28px;
-    border-radius: 50%;
-    border: 2px solid #e04436;
-    color: #e04436;
-    font-weight: 700;
-    font-size: 18px;
-    line-height: 1;
-    margin-right: 6px;
-  }
   .clean-brand-name {
     font-size: 26px;
     font-weight: 700;
     color: #2b2b2b;
     letter-spacing: -0.5px;
-  }
-  .clean-brand-divider {
-    margin: 0 12px;
-    color: #cccccc;
-    font-weight: 300;
-    font-size: 20px;
-  }
-  .clean-brand-tagline {
-    font-size: 13.5px;
-    color: #777777;
-    font-weight: 400;
-  }
-  .clean-search-box {
-    display: flex;
-    align-items: center;
-    background: #f4f4f4;
-    border: 1px solid #e6e6e6;
-    border-radius: 24px;
-    padding: 5px 14px;
-    width: 210px;
-  }
-  .clean-search-box input {
-    border: none;
-    background: transparent;
-    font-size: 12px;
-    font-style: italic;
-    color: #666;
-    outline: none;
-    width: 100%;
-    padding: 2px 0;
-  }
-  .clean-search-box button {
-    border: none;
-    background: transparent;
-    color: #444;
-    cursor: pointer;
-    padding: 0;
-    display: grid;
-    place-items: center;
   }
 
   /* 3. Nav Row */
@@ -310,20 +208,20 @@
     font-size: 9px;
   }
   .clean-link:hover {
-    color: #e04436;
+    color: var(--navy, #152641);
     text-decoration: none;
   }
 
-  /* Active Pill */
+  /* Active state: lime green block, square corners */
   .clean-pill-active {
-    background: #e04436 !important;
-    color: #ffffff !important;
-    border-radius: 20px !important;
+    background: var(--lime, #C3F84A) !important;
+    color: var(--navy, #152641) !important;
+    border-radius: 0 !important;
     padding: 8px 18px !important;
   }
   .clean-pill-active:hover {
-    background: #c02d20 !important;
-    color: #ffffff !important;
+    background: #b7e63e !important;
+    color: var(--navy, #152641) !important;
   }
 
   /* Mega Menu Dropdown */
@@ -379,19 +277,20 @@
     flex-shrink: 0;
   }
   .clean-mega-col ul li a:hover {
-    color: #e04436;
+    color: var(--navy, #152641);
     text-decoration: none;
   }
   .clean-mega-col ul li a:hover .dot {
-    border-color: #e04436;
+    border-color: var(--navy, #152641);
   }
   /* Highlighted active item in list */
   .clean-mega-col ul li.highlighted a {
-    color: #e04436;
+    color: var(--navy, #152641);
     font-weight: 600;
   }
   .clean-mega-col ul li.highlighted a .dot {
-    border-color: #e04436;
+    border-color: var(--navy, #152641);
+    background: var(--lime, #C3F84A);
   }
 
   /* Responsive layout */
@@ -492,57 +391,343 @@
   </div>
 </div></section>
 </main>
-<footer class="site">
-  <div class="wrap">
-    <div class="top">
-      <div>
-        <div class="fbrand">[Company Name]</div>
-        <div class="fsub">Business Advisory | Business Intelligence | Research &amp; Analysis</div>
-        <p>We help businesses understand their performance, evaluate commercial opportunities and
-           strengthen the processes and controls that support their operations.</p>
+<!-- ==================== NEW FOOTER (Screenshot Style) ==================== -->
+<footer class="connect-footer">
+  <style>
+    .connect-footer {
+      background-color: var(--navy, #152641);
+      color: #ffffff;
+      font-family: var(--font-body, "Montserrat", -apple-system, BlinkMacSystemFont, sans-serif);
+      margin-top: 60px;
+      position: relative;
+      width: 100%;
+    }
+
+    .connect-footer a {
+      color: rgba(255, 255, 255, 0.75);
+      text-decoration: none;
+      transition: color 0.2s ease;
+    }
+
+    .connect-footer a:hover {
+      color: #ffffff;
+    }
+
+    .connect-footer-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* --- 1. Top CTA Bar --- */
+    .connect-footer-cta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 42px 0 36px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+
+    .connect-footer-cta h2 {
+      font-family: var(--font-body, "Montserrat", sans-serif);
+      font-size: 38px;
+      font-weight: 700;
+      color: #ffffff;
+      margin: 0;
+      letter-spacing: -0.5px;
+    }
+
+    .connect-footer-cta-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: #c89d6c;
+      color: #ffffff !important;
+      font-size: 13.5px;
+      font-weight: 600;
+      padding: 12px 30px;
+      border-radius: 9999px;
+      text-transform: capitalize;
+      letter-spacing: 0.2px;
+      box-shadow: 0 4px 14px rgba(200, 157, 108, 0.35);
+      transition: transform 0.2s ease, background 0.2s ease;
+    }
+
+    .connect-footer-cta-btn:hover {
+      background: #b68b5a;
+      transform: translateY(-1px);
+    }
+
+    /* --- 2. Main 4-Column Body --- */
+    .connect-footer-grid {
+      display: grid;
+      grid-template-columns: 1.4fr 1fr 1fr 1.3fr;
+      gap: 40px;
+      padding: 48px 0 54px;
+    }
+
+    .connect-footer-col h4 {
+      color: #ffffff;
+      font-size: 15px;
+      font-weight: 600;
+      margin: 0 0 22px 0;
+      letter-spacing: 0.2px;
+    }
+
+    .connect-footer-col ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    .connect-footer-col ul li {
+      margin-bottom: 12px;
+      font-size: 13.5px;
+      line-height: 1.5;
+    }
+
+    /* Brand Column */
+    .connect-footer-brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+
+    .connect-footer-logo-icon {
+      width: 32px;
+      height: 32px;
+      background: #c89d6c;
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      color: #ffffff;
+      font-weight: 700;
+      font-size: 16px;
+    }
+
+    .connect-footer-brand-title {
+      font-size: 20px;
+      font-weight: 700;
+      color: #ffffff;
+      letter-spacing: -0.2px;
+    }
+
+    .connect-footer-desc {
+      color: rgba(255, 255, 255, 0.7);
+      font-size: 13px;
+      line-height: 1.65;
+      margin: 0 0 24px 0;
+      max-width: 320px;
+    }
+
+    /* Social Icons */
+    .connect-footer-socials {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .connect-footer-social-icon {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.1);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      color: #ffffff !important;
+      font-size: 13px;
+      transition: background 0.2s ease, transform 0.2s ease;
+    }
+
+    .connect-footer-social-icon:hover {
+      background: #c89d6c;
+      transform: translateY(-2px);
+    }
+
+    /* Newsletter Form */
+    .connect-newsletter-box {
+      position: relative;
+      display: flex;
+      align-items: center;
+      background: rgba(255, 255, 255, 0.12);
+      border-radius: 9999px;
+      padding: 4px 6px 4px 18px;
+      margin-top: 14px;
+    }
+
+    .connect-newsletter-box input {
+      background: transparent;
+      border: none;
+      outline: none;
+      color: #ffffff;
+      font-size: 13px;
+      width: 100%;
+      padding: 10px 0;
+      font-family: inherit;
+    }
+
+    .connect-newsletter-box input::placeholder {
+      color: rgba(255, 255, 255, 0.55);
+    }
+
+    .connect-newsletter-btn {
+      width: 36px;
+      height: 36px;
+      min-width: 36px;
+      border-radius: 50%;
+      background: #c89d6c;
+      border: none;
+      color: #ffffff;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: background 0.2s ease;
+    }
+
+    .connect-newsletter-btn:hover {
+      background: #b68b5a;
+    }
+
+    /* --- 3. Bottom Accent Bar --- */
+    .connect-footer-base {
+      background: #c89d6c;
+      color: #ffffff;
+      padding: 16px 0;
+      font-size: 12.5px;
+    }
+
+    .connect-footer-base-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .connect-footer-base a {
+      color: #ffffff;
+      opacity: 0.95;
+    }
+
+    .connect-footer-base a:hover {
+      text-decoration: underline;
+    }
+
+    /* Responsive */
+    @media (max-width: 900px) {
+      .connect-footer-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 36px;
+      }
+      .connect-footer-cta h2 {
+        font-size: 28px;
+      }
+    }
+
+    @media (max-width: 580px) {
+      .connect-footer-grid {
+        grid-template-columns: 1fr;
+        gap: 30px;
+      }
+      .connect-footer-cta {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .connect-footer-base-inner {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+</style>
+
+  <div class="connect-footer-container">
+    <!-- Top CTA Bar -->
+    <div class="connect-footer-cta">
+      <h2>Let's Connect there</h2>
+      <a href="contact.html" class="connect-footer-cta-btn">Contact Us</a>
+    </div>
+
+    <!-- Main Footer Columns -->
+    <div class="connect-footer-grid">
+      <!-- Col 1: Brand & About -->
+      <div class="connect-footer-col">
+        <div class="connect-footer-brand">
+          <span class="connect-footer-logo-icon" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M4 19V11M9.5 19V5M15 19v-6M20 19v-9" stroke="#152641" stroke-width="2.6" stroke-linecap="round"/></svg></span>
+          <span class="connect-footer-brand-title">[Company Name]</span>
+        </div>
+        <p class="connect-footer-desc">
+          We help businesses understand their performance, evaluate commercial opportunities and
+          strengthen the processes and controls that support their operations.
+        </p>
+        <div class="connect-footer-socials">
+          <a href="#" class="connect-footer-social-icon" aria-label="LinkedIn">in</a>
+          <a href="#" class="connect-footer-social-icon" aria-label="X / Twitter">𝕏</a>
+          <a href="mailto:[Company Email]" class="connect-footer-social-icon" aria-label="Email">✉</a>
+          <a href="tel:[Company Telephone]" class="connect-footer-social-icon" aria-label="Phone">📞</a>
+        </div>
       </div>
-      <div>
+
+      <!-- Col 2: Navigation Links -->
+      <div class="connect-footer-col">
         <h4>Explore</h4>
         <ul>
           <li><a href="about.html">About Us</a></li>
           <li><a href="services.html">Our Services</a></li>
           <li><a href="research-publications.html">Research Publications</a></li>
           <li><a href="insights.html">Insights</a></li>
+          <li><a href="faq.html">FAQ</a></li>
           <li><a href="contact.html">Contact Us</a></li>
         </ul>
       </div>
-      <div>
-        <h4>Our Services</h4>
+
+      <!-- Col 3: Contact Details -->
+      <div class="connect-footer-col">
+        <h4>Contact</h4>
         <ul>
-          <li><a href="business-intelligence-performance-analytics.html">Business Intelligence &amp; Performance Analytics</a></li>
-          <li><a href="economic-commercial-intelligence.html">Economic &amp; Commercial Intelligence</a></li>
-          <li><a href="operational-risk-process-controls.html">Operational Risk, Process &amp; Controls Advisory</a></li>
+          <li style="color:rgba(255,255,255,0.75)">[Company Telephone]</li>
+          <li><a href="mailto:[Company Email]">[Company Email]</a></li>
+          <li style="color:rgba(255,255,255,0.75)">Operating across South Africa</li>
         </ul>
       </div>
-      <div>
-        <h4>Information</h4>
-        <ul>
-          <li><a href="faq.html">Frequently Asked Questions</a></li>
-          <li><a href="privacy-policy.html">Privacy Policy</a></li>
-          <li><a href="website-terms.html">Website Terms &amp; Conditions</a></li>
-          <li><a href="client-service-terms.html">Client Service Terms</a></li>
-          <li><a href="publication-licence.html">Research Publication Licence</a></li>
-          <li><a href="refund-policy.html">Digital Product Refund &amp; Cancellation Policy</a></li>
-        </ul>
-        <h4 style="margin-top:22px">Contact</h4>
-        <ul>
-          <li><a href="mailto:[Company Email]">Email: [Company Email]</a></li>
-          <li>Telephone: [Company Telephone]</li>
-          <li>Operating coverage: South Africa</li>
-        </ul>
+
+      <!-- Col 4: Newsletter -->
+      <div class="connect-footer-col">
+        <h4>Get the latest information</h4>
+        <p style="color:rgba(255,255,255,0.7);font-size:12.5px;margin:0 0 10px 0;line-height:1.5">
+          Receive advisory insights and research releases.
+        </p>
+        <form class="connect-newsletter-box" onsubmit="event.preventDefault();">
+          <input type="email" placeholder="Email address" required>
+          <button type="submit" class="connect-newsletter-btn" aria-label="Subscribe">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="22" y1="2" x2="11" y2="13"></line>
+              <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+            </svg>
+          </button>
+        </form>
       </div>
     </div>
-    <div class="base">
-      <span>© <span data-year>2026</span> [Company Name]. All rights reserved.</span>
-      <span>Business Advisory · South Africa</span>
+  </div>
+
+  <!-- Bottom Accent Bar -->
+  <div class="connect-footer-base">
+    <div class="connect-footer-container connect-footer-base-inner">
+      <span>Copyright © 2026 [Company Name]. All Rights Reserved.</span>
+      <div>
+        <a href="website-terms.html">User Terms &amp; Conditions</a>
+        <span style="margin: 0 8px; opacity: 0.6">|</span>
+        <a href="privacy-policy.html">Privacy Policy</a>
+      </div>
     </div>
   </div>
 </footer>
+<!-- ==================== END FOOTER ==================== -->
 </div>
 <script src="assets/site.js"></script>
 </body>
