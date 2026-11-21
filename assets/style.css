@@ -129,6 +129,9 @@ section.dark .sec-head p.intro{color:#C9D8EA}
 .g2{grid-template-columns:repeat(2,1fr)}
 .g3{grid-template-columns:repeat(3,1fr)}
 .g4{grid-template-columns:repeat(4,1fr)}
+/* Divisions layout: 01+02 side by side, 03 spans the full remaining width */
+.divgrid{grid-template-columns:repeat(2,1fr)}
+.divgrid .card:last-child{grid-column:1/-1}
 .card{background:var(--sheet);border:1px solid var(--rule);border-radius:0;box-shadow:none;
   padding:clamp(22px,2.4vw,32px);display:flex;flex-direction:column;gap:13px}
 .card .num{font-family:var(--font-display);font-weight:800;font-size:34px;
@@ -153,7 +156,7 @@ section.dark .sec-head p.intro{color:#C9D8EA}
 ul.check{list-style:none;display:grid;gap:12px}
 ul.check li{padding-left:30px;position:relative;color:var(--ink)}
 ul.check li::before{content:"";position:absolute;left:0;top:6px;width:15px;height:15px;
-  border-radius:1px;background:var(--lime);
+  border-radius:0;background:var(--lime);
   -webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='3.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4 12l6 6L21 6'/%3E%3C/svg%3E") center/12px no-repeat, linear-gradient(#000,#000);
   -webkit-mask-composite:source-over;mask-composite:add}
 ol.steps{list-style:none;counter-reset:st;display:grid;gap:20px}
@@ -385,3 +388,5 @@ footer.site .base{border-top:1px solid rgba(255,255,255,.14);padding:20px 0 26px
 ol.steps li{display:block;position:relative;padding-left:76px}
 ol.steps li::before{position:absolute;left:0;top:2px}
 ol.steps li strong{margin-left:0}
+/* Sharp corners everywhere — global guarantee (no rounded rectangles) */
+*,*::before,*::after{border-radius:0}

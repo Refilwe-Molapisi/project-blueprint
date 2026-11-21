@@ -151,6 +151,9 @@ section.dark .sec-head p.intro{color:#C9D8EA}
 .g2{grid-template-columns:repeat(2,1fr)}
 .g3{grid-template-columns:repeat(3,1fr)}
 .g4{grid-template-columns:repeat(4,1fr)}
+/* Divisions layout: 01+02 side by side, 03 spans the full remaining width */
+.divgrid{grid-template-columns:repeat(2,1fr)}
+.divgrid .card:last-child{grid-column:1/-1}
 .card{background:var(--sheet);border:1px solid var(--rule);border-radius:0;box-shadow:none;
   padding:clamp(22px,2.4vw,32px);display:flex;flex-direction:column;gap:13px}
 .card .num{font-family:var(--font-display);font-weight:800;font-size:34px;
@@ -175,7 +178,7 @@ section.dark .sec-head p.intro{color:#C9D8EA}
 ul.check{list-style:none;display:grid;gap:12px}
 ul.check li{padding-left:30px;position:relative;color:var(--ink)}
 ul.check li::before{content:"";position:absolute;left:0;top:6px;width:15px;height:15px;
-  border-radius:1px;background:var(--lime);
+  border-radius:0;background:var(--lime);
   -webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='3.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4 12l6 6L21 6'/%3E%3C/svg%3E") center/12px no-repeat, linear-gradient(#000,#000);
   -webkit-mask-composite:source-over;mask-composite:add}
 ol.steps{list-style:none;counter-reset:st;display:grid;gap:20px}
@@ -407,6 +410,8 @@ footer.site .base{border-top:1px solid rgba(255,255,255,.14);padding:20px 0 26px
 ol.steps li{display:block;position:relative;padding-left:76px}
 ol.steps li::before{position:absolute;left:0;top:2px}
 ol.steps li strong{margin-left:0}
+/* Sharp corners everywhere — global guarantee (no rounded rectangles) */
+*,*::before,*::after{border-radius:0}
 """
 
 # ═══════════════════════════════ JS ═══════════════════════════════
@@ -572,14 +577,17 @@ NAV_STYLE = r"""
     text-decoration: none;
   }
 
-  /* 2. Midbar */
-  .clean-midbar {
-    padding: 16px 0;
+  /* 2. Brand & Navigation Band — links sit beside the brand on desktop */
+  .clean-navband {
+    border-top: 1px solid #f0f0f0;
+    background: #ffffff;
+    position: relative;
   }
-  .clean-midbar-inner {
+  .clean-navband-inner {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    gap: 24px;
   }
   .clean-brand {
     display: inline-flex;
@@ -596,20 +604,13 @@ NAV_STYLE = r"""
     letter-spacing: -0.5px;
   }
 
-  /* 3. Nav Row */
-  .clean-navrow {
-    border-top: 1px solid #f0f0f0;
-    background: #ffffff;
-    position: relative;
-  }
-  .clean-nav-inner {
-    display: flex;
-    justify-content: center;
-  }
+  /* 3. Navigation Links (inside the brand band) */
   .clean-menu {
     list-style: none;
     display: flex;
     align-items: center;
+    flex-wrap: wrap;
+    justify-content: flex-end;
     margin: 0;
     padding: 8px 0;
     gap: 12px;
@@ -628,7 +629,7 @@ NAV_STYLE = r"""
     align-items: center;
     gap: 5px;
     text-decoration: none;
-    border-radius: 4px;
+    border-radius: 0;
     transition: color 0.15s ease;
   }
   .clean-link .arrow {
@@ -660,7 +661,7 @@ NAV_STYLE = r"""
     transform: translateX(-50%);
     background: #ffffff;
     border: 1px solid #e2e2e2;
-    border-radius: 2px;
+    border-radius: 0;
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
     padding: 24px 30px;
     width: 620px;
@@ -698,7 +699,7 @@ NAV_STYLE = r"""
   .clean-mega-col ul li a .dot {
     width: 7px;
     height: 7px;
-    border-radius: 50%;
+    border-radius: 0;
     border: 1.5px solid #888888;
     display: inline-block;
     flex-shrink: 0;
@@ -722,7 +723,7 @@ NAV_STYLE = r"""
 
   /* Responsive layout */
   @media (max-width: 900px) {
-    .clean-topbar-inner, .clean-midbar-inner {
+    .clean-topbar-inner, .clean-navband-inner {
       flex-direction: column;
       gap: 10px;
       text-align: center;
@@ -807,24 +808,20 @@ def header(active, with_drop=False):
     </div>
   </div>
 
-  <!-- 2. Brand Mid-Bar -->
-  <div class="clean-midbar">
-    <div class="clean-container clean-midbar-inner">
+  <!-- 2. Brand & Navigation Band (links beside the brand on desktop) -->
+  <div class="clean-navband">
+    <div class="clean-container clean-navband-inner">
       <a href="index.html" class="clean-brand">
         <span class="clean-brand-icon">{LOGO_SVG}</span>
         <span class="clean-brand-name">{COMPANY_NAME}</span>
       </a>
+      <nav aria-label="Main navigation">
+        <ul class="clean-menu">
+{chr(10).join(items)}
+        </ul>
+      </nav>
     </div>
   </div>
-
-  <!-- 3. Navigation Links Row -->
-  <nav class="clean-navrow" aria-label="Main navigation">
-    <div class="clean-container clean-nav-inner">
-      <ul class="clean-menu">
-{chr(10).join(items)}
-      </ul>
-    </div>
-  </nav>
 </header>
 
 <!-- Scoped CSS for the new navigation bar (leave style.css untouched) -->
@@ -880,20 +877,20 @@ FOOTER_STYLE = r"""
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      background: #c89d6c;
-      color: #ffffff !important;
+      background: var(--lime, #C3F84A);
+      color: var(--navy, #152641) !important;
       font-size: 13.5px;
       font-weight: 600;
       padding: 12px 30px;
-      border-radius: 9999px;
+      border-radius: 0;
       text-transform: capitalize;
       letter-spacing: 0.2px;
-      box-shadow: 0 4px 14px rgba(200, 157, 108, 0.35);
+      box-shadow: 0 4px 14px rgba(195, 248, 74, 0.35);
       transition: transform 0.2s ease, background 0.2s ease;
     }
 
     .connect-footer-cta-btn:hover {
-      background: #b68b5a;
+      background: #b7e63e;
       transform: translateY(-1px);
     }
 
@@ -936,8 +933,8 @@ FOOTER_STYLE = r"""
     .connect-footer-logo-icon {
       width: 32px;
       height: 32px;
-      background: #c89d6c;
-      border-radius: 50%;
+      background: var(--lime, #C3F84A);
+      border-radius: 0;
       display: inline-flex;
       align-items: center;
       justify-content: center;
@@ -971,18 +968,19 @@ FOOTER_STYLE = r"""
     .connect-footer-social-icon {
       width: 34px;
       height: 34px;
-      border-radius: 50%;
+      border-radius: 0;
       background: rgba(255, 255, 255, 0.1);
       display: inline-flex;
       align-items: center;
       justify-content: center;
       color: #ffffff !important;
       font-size: 13px;
-      transition: background 0.2s ease, transform 0.2s ease;
+      transition: background 0.2s ease, transform 0.2s ease, color 0.2s ease;
     }
 
     .connect-footer-social-icon:hover {
-      background: #c89d6c;
+      background: var(--lime, #C3F84A);
+      color: var(--navy, #152641) !important;
       transform: translateY(-2px);
     }
 
@@ -992,7 +990,7 @@ FOOTER_STYLE = r"""
       display: flex;
       align-items: center;
       background: rgba(255, 255, 255, 0.12);
-      border-radius: 9999px;
+      border-radius: 0;
       padding: 4px 6px 4px 18px;
       margin-top: 14px;
     }
@@ -1016,10 +1014,10 @@ FOOTER_STYLE = r"""
       width: 36px;
       height: 36px;
       min-width: 36px;
-      border-radius: 50%;
-      background: #c89d6c;
+      border-radius: 0;
+      background: var(--lime, #C3F84A);
       border: none;
-      color: #ffffff;
+      color: var(--navy, #152641);
       display: inline-flex;
       align-items: center;
       justify-content: center;
@@ -1028,13 +1026,13 @@ FOOTER_STYLE = r"""
     }
 
     .connect-newsletter-btn:hover {
-      background: #b68b5a;
+      background: #b7e63e;
     }
 
     /* --- 3. Bottom Accent Bar --- */
     .connect-footer-base {
-      background: #c89d6c;
-      color: #ffffff;
+      background: var(--lime, #C3F84A);
+      color: var(--navy, #152641);
       padding: 16px 0;
       font-size: 12.5px;
     }
@@ -1048,7 +1046,7 @@ FOOTER_STYLE = r"""
     }
 
     .connect-footer-base a {
-      color: #ffffff;
+      color: var(--navy, #152641);
       opacity: 0.95;
     }
 
@@ -1564,7 +1562,7 @@ add("services.html",
              tags=["3 Divisions", "9 Service packages", "Delivered across South Africa"]) + f"""
 
 <section class="block"><div class="wrap">
-  <div class="grid g3">
+  <div class="grid g2 divgrid">
     <div class="card rise"><span class="num">01</span>
       <div class="divlabel">Division 01</div>
       <h3>Business Intelligence &amp; Performance Analytics</h3>

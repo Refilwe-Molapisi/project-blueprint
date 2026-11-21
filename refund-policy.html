@@ -34,9 +34,9 @@
     </div>
   </div>
 
-  <!-- 2. Brand Mid-Bar -->
-  <div class="clean-midbar">
-    <div class="clean-container clean-midbar-inner">
+  <!-- 2. Brand & Navigation Band (links beside the brand on desktop) -->
+  <div class="clean-navband">
+    <div class="clean-container clean-navband-inner">
       <a href="index.html" class="clean-brand">
         <span class="clean-brand-icon"><span class="mark" aria-hidden="true">
 <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
@@ -44,13 +44,8 @@
  stroke-linecap="round"/></svg></span></span>
         <span class="clean-brand-name">[Company Name]</span>
       </a>
-    </div>
-  </div>
-
-  <!-- 3. Navigation Links Row -->
-  <nav class="clean-navrow" aria-label="Main navigation">
-    <div class="clean-container clean-nav-inner">
-      <ul class="clean-menu">
+      <nav aria-label="Main navigation">
+        <ul class="clean-menu">
         <li class="clean-menu-item">
           <a href="index.html" class="clean-link">Home</a>
         </li>
@@ -99,9 +94,10 @@
         <li class="clean-menu-item">
           <a href="contact.html" class="clean-link">Contact</a>
         </li>
-      </ul>
+        </ul>
+      </nav>
     </div>
-  </nav>
+  </div>
 </header>
 
 <!-- Scoped CSS for the new navigation bar (leave style.css untouched) -->
@@ -145,14 +141,17 @@
     text-decoration: none;
   }
 
-  /* 2. Midbar */
-  .clean-midbar {
-    padding: 16px 0;
+  /* 2. Brand & Navigation Band — links sit beside the brand on desktop */
+  .clean-navband {
+    border-top: 1px solid #f0f0f0;
+    background: #ffffff;
+    position: relative;
   }
-  .clean-midbar-inner {
+  .clean-navband-inner {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    gap: 24px;
   }
   .clean-brand {
     display: inline-flex;
@@ -169,20 +168,13 @@
     letter-spacing: -0.5px;
   }
 
-  /* 3. Nav Row */
-  .clean-navrow {
-    border-top: 1px solid #f0f0f0;
-    background: #ffffff;
-    position: relative;
-  }
-  .clean-nav-inner {
-    display: flex;
-    justify-content: center;
-  }
+  /* 3. Navigation Links (inside the brand band) */
   .clean-menu {
     list-style: none;
     display: flex;
     align-items: center;
+    flex-wrap: wrap;
+    justify-content: flex-end;
     margin: 0;
     padding: 8px 0;
     gap: 12px;
@@ -201,7 +193,7 @@
     align-items: center;
     gap: 5px;
     text-decoration: none;
-    border-radius: 4px;
+    border-radius: 0;
     transition: color 0.15s ease;
   }
   .clean-link .arrow {
@@ -233,7 +225,7 @@
     transform: translateX(-50%);
     background: #ffffff;
     border: 1px solid #e2e2e2;
-    border-radius: 2px;
+    border-radius: 0;
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
     padding: 24px 30px;
     width: 620px;
@@ -271,7 +263,7 @@
   .clean-mega-col ul li a .dot {
     width: 7px;
     height: 7px;
-    border-radius: 50%;
+    border-radius: 0;
     border: 1.5px solid #888888;
     display: inline-block;
     flex-shrink: 0;
@@ -295,7 +287,7 @@
 
   /* Responsive layout */
   @media (max-width: 900px) {
-    .clean-topbar-inner, .clean-midbar-inner {
+    .clean-topbar-inner, .clean-navband-inner {
       flex-direction: column;
       gap: 10px;
       text-align: center;
@@ -389,20 +381,20 @@
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      background: #c89d6c;
-      color: #ffffff !important;
+      background: var(--lime, #C3F84A);
+      color: var(--navy, #152641) !important;
       font-size: 13.5px;
       font-weight: 600;
       padding: 12px 30px;
-      border-radius: 9999px;
+      border-radius: 0;
       text-transform: capitalize;
       letter-spacing: 0.2px;
-      box-shadow: 0 4px 14px rgba(200, 157, 108, 0.35);
+      box-shadow: 0 4px 14px rgba(195, 248, 74, 0.35);
       transition: transform 0.2s ease, background 0.2s ease;
     }
 
     .connect-footer-cta-btn:hover {
-      background: #b68b5a;
+      background: #b7e63e;
       transform: translateY(-1px);
     }
 
@@ -445,8 +437,8 @@
     .connect-footer-logo-icon {
       width: 32px;
       height: 32px;
-      background: #c89d6c;
-      border-radius: 50%;
+      background: var(--lime, #C3F84A);
+      border-radius: 0;
       display: inline-flex;
       align-items: center;
       justify-content: center;
@@ -480,18 +472,19 @@
     .connect-footer-social-icon {
       width: 34px;
       height: 34px;
-      border-radius: 50%;
+      border-radius: 0;
       background: rgba(255, 255, 255, 0.1);
       display: inline-flex;
       align-items: center;
       justify-content: center;
       color: #ffffff !important;
       font-size: 13px;
-      transition: background 0.2s ease, transform 0.2s ease;
+      transition: background 0.2s ease, transform 0.2s ease, color 0.2s ease;
     }
 
     .connect-footer-social-icon:hover {
-      background: #c89d6c;
+      background: var(--lime, #C3F84A);
+      color: var(--navy, #152641) !important;
       transform: translateY(-2px);
     }
 
@@ -501,7 +494,7 @@
       display: flex;
       align-items: center;
       background: rgba(255, 255, 255, 0.12);
-      border-radius: 9999px;
+      border-radius: 0;
       padding: 4px 6px 4px 18px;
       margin-top: 14px;
     }
@@ -525,10 +518,10 @@
       width: 36px;
       height: 36px;
       min-width: 36px;
-      border-radius: 50%;
-      background: #c89d6c;
+      border-radius: 0;
+      background: var(--lime, #C3F84A);
       border: none;
-      color: #ffffff;
+      color: var(--navy, #152641);
       display: inline-flex;
       align-items: center;
       justify-content: center;
@@ -537,13 +530,13 @@
     }
 
     .connect-newsletter-btn:hover {
-      background: #b68b5a;
+      background: #b7e63e;
     }
 
     /* --- 3. Bottom Accent Bar --- */
     .connect-footer-base {
-      background: #c89d6c;
-      color: #ffffff;
+      background: var(--lime, #C3F84A);
+      color: var(--navy, #152641);
       padding: 16px 0;
       font-size: 12.5px;
     }
@@ -557,7 +550,7 @@
     }
 
     .connect-footer-base a {
-      color: #ffffff;
+      color: var(--navy, #152641);
       opacity: 0.95;
     }
 
