@@ -28,8 +28,11 @@ CSS = r"""
   --serif:"Libre Baskerville",Georgia,"Times New Roman",serif;
   --sans:"Montserrat","Segoe UI",Arial,sans-serif;
   /* ── Reusable design tokens (flat editorial system) ── */
-  --font-display:var(--sans);          /* headings & display type */
-  --font-body:var(--sans);             /* body copy */
+  --font-display:var(--sans);          /* Montserrat — section headings & display type */
+  --font-body:var(--sans);             /* Montserrat — nav, body text, buttons, reports, dashboards */
+  --font-brand:var(--serif);           /* Libre Baskerville — logo, primary brand headings, editorial headlines */
+  /* Montserrat weights are LOCKED: body text = 400 (Regular); labels, dashboard
+     elements and data = 500 (Medium). Do not change them to anything else. */
   --rule:var(--lime);                  /* hairline rules & cell borders */
   --rule-strong:var(--navy);           /* strong structural rules */
   --frame:var(--navy);                 /* page-frame colour behind the sheet */
@@ -53,8 +56,10 @@ a{color:var(--blue);text-decoration:none}
 a:hover{text-decoration:underline}
 a:focus-visible,button:focus-visible,summary:focus-visible,input:focus-visible,
 select:focus-visible,textarea:focus-visible{outline:2.5px solid var(--navy);outline-offset:3px;border-radius:0}
-h1,h2,h3,.serif{font-family:var(--font-display);color:var(--navy)}
-h1{font-weight:800;text-transform:uppercase;font-size:var(--text-display);
+h2,h3{font-family:var(--font-display);color:var(--navy)}
+h1,.serif{font-family:var(--font-brand);color:var(--navy)}
+h1{font-weight:700;text-transform:uppercase;
+  font-size:min(var(--text-display),calc(10vw - 4px));
   line-height:.98;letter-spacing:0}
 h2{font-weight:600;font-size:40px;line-height:1.15}
 h3{font-weight:700;font-size:21px;line-height:1.3}
@@ -67,13 +72,13 @@ h3{font-weight:700;font-size:21px;line-height:1.3}
 header.site{position:sticky;top:0;z-index:100;background:rgba(255,255,255,.97);
   backdrop-filter:blur(8px);border-bottom:1px solid var(--rule)}
 .navrow{display:flex;align-items:center;gap:clamp(12px,1.4vw,16px);min-height:74px}
-.brand{display:flex;align-items:center;gap:11px;font-family:var(--font-display);font-weight:800;
+.brand{display:flex;align-items:center;gap:11px;font-family:var(--font-brand);font-weight:700;
   text-transform:uppercase;line-height:1.05;letter-spacing:0;
   font-size:16px;color:var(--navy);text-decoration:none;white-space:nowrap}
 .brand:hover{text-decoration:none}
 .mark{width:38px;height:38px;border-radius:0;background:var(--navy);flex:0 0 38px;
   display:grid;place-items:center}
-.brand small{display:block;font-family:var(--font-body);font-weight:600;font-size:9px;
+.brand small{display:block;font-family:var(--font-body);font-weight:500;font-size:9px;
   letter-spacing:0;color:var(--muted);text-transform:uppercase;margin-top:3px}
 nav.main{margin-left:auto;display:flex;align-items:center;gap:clamp(6px,.8vw,11px)}
 nav.main a{color:var(--navy);font-weight:700;font-size:11.5px;text-transform:uppercase;
@@ -128,11 +133,11 @@ nav.main a[aria-current="page"]::after{content:"";position:absolute;left:0;right
 .hero-viz{position:absolute;right:-40px;top:0;bottom:0;width:min(46vw,620px);opacity:.8;
   pointer-events:none}
 .crumbs{font-size:12px;color:var(--muted);margin-bottom:20px;letter-spacing:0;
-  text-transform:uppercase;font-weight:600}
+  text-transform:uppercase;font-weight:500}
 .crumbs a{color:var(--muted)}
 
 /* ── Eyebrow / sections ── */
-.eyebrow{display:inline-flex;align-items:center;gap:10px;font-weight:800;font-size:11.5px;
+.eyebrow{display:inline-flex;align-items:center;gap:10px;font-weight:500;font-size:11.5px;
   letter-spacing:0;text-transform:uppercase;color:var(--blue);margin-bottom:14px}
 .eyebrow::before{content:"";width:26px;height:2px;background:var(--lime)}
 section.block{padding:var(--sp-section) 0}
@@ -156,7 +161,7 @@ section.dark .sec-head p.intro{color:#C9D8EA}
 .divgrid .card:last-child{grid-column:1/-1}
 .card{background:var(--sheet);border:1px solid var(--rule);border-radius:0;box-shadow:none;
   padding:clamp(22px,2.4vw,32px);display:flex;flex-direction:column;gap:13px}
-.card .num{font-family:var(--font-display);font-weight:800;font-size:34px;
+.card .num{font-family:var(--font-display);font-weight:500;font-size:34px;
   line-height:1;color:var(--navy);background:none;width:auto;height:auto;
   display:inline-flex;align-items:baseline;gap:8px}
 .card .num::after{content:"";width:var(--mark);height:var(--mark);background:var(--lime);flex:0 0 auto}
@@ -184,7 +189,7 @@ ul.check li::before{content:"";position:absolute;left:0;top:6px;width:15px;heigh
 ol.steps{list-style:none;counter-reset:st;display:grid;gap:20px}
 ol.steps li{counter-increment:st;display:flex;gap:18px;align-items:flex-start}
 ol.steps li::before{content:counter(st,decimal-leading-zero);font-family:var(--font-display);
-  font-weight:800;font-size:30px;line-height:1;color:var(--navy);
+  font-weight:500;font-size:30px;line-height:1;color:var(--navy);
   background:none;border:0;border-radius:0;min-width:58px;height:auto;
   display:block;flex:0 0 auto;padding-top:2px}
 ol.steps li strong{display:block;margin-bottom:3px}
@@ -194,9 +199,9 @@ ol.steps li strong{display:block;margin-bottom:3px}
 .stat-row{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:34px}
 .stat{background:transparent;border:0;border-top:2px solid var(--rule);border-radius:0;
   padding:16px 4px 0 0}
-.stat b{font-family:var(--font-display);font-weight:800;font-size:36px;
+.stat b{font-family:var(--font-display);font-weight:500;font-size:36px;
   color:var(--lime);display:block}
-.stat span{font-size:12px;color:#B9C9DD;letter-spacing:0;text-transform:uppercase;font-weight:600}
+.stat span{font-size:12px;color:#B9C9DD;letter-spacing:0;text-transform:uppercase;font-weight:500}
 
 /* ── Callouts ── */
 .callout{border-left:4px solid var(--blue);background:var(--tint);border-radius:0;
@@ -230,13 +235,13 @@ ol.steps li strong{display:block;margin-bottom:3px}
 .pagetags span{background:transparent;border:1px solid var(--navy);color:var(--navy);
   font-size:11.5px;font-weight:700;letter-spacing:0;text-transform:uppercase;
   padding:7px 13px;border-radius:0}
-.divlabel{font-size:11.5px;letter-spacing:0;text-transform:uppercase;font-weight:800;
+.divlabel{font-size:11.5px;letter-spacing:0;text-transform:uppercase;font-weight:500;
   color:var(--navy);margin-bottom:10px;display:flex;gap:10px;align-items:center}
 .divlabel::before{content:"";width:22px;height:2px;background:var(--lime)}
 .svc-list{display:grid;gap:1px;background:var(--rule);border:1px solid var(--rule)}
 .svc-item{display:grid;grid-template-columns:72px 1fr auto;gap:18px;align-items:center;
   background:var(--sheet);border:0;border-radius:0;box-shadow:none;padding:24px 26px}
-.svc-item .num{font-family:var(--font-display);font-weight:800;color:var(--navy);background:none;
+.svc-item .num{font-family:var(--font-display);font-weight:500;color:var(--navy);background:none;
   border-radius:0;width:auto;height:auto;display:inline-flex;align-items:baseline;gap:8px;
   font-size:30px;line-height:1}
 .svc-item .num::after{content:"";width:var(--mark);height:var(--mark);background:var(--lime);flex:0 0 auto}
@@ -246,7 +251,7 @@ ol.steps li strong{display:block;margin-bottom:3px}
 .panel{background:var(--sheet);border:1px solid var(--rule);border-radius:0;box-shadow:none;
   padding:clamp(22px,2.6vw,34px)}
 .panel h3{margin-bottom:14px}
-.panel .kicker{font-size:11px;letter-spacing:0;text-transform:uppercase;font-weight:800;
+.panel .kicker{font-size:11px;letter-spacing:0;text-transform:uppercase;font-weight:500;
   color:var(--blue);margin-bottom:8px}
 .contact-grid{display:grid;grid-template-columns:1.35fr 1fr;gap:clamp(24px,3.4vw,48px)}
 @media (max-width:1020px){.contact-grid{grid-template-columns:1fr}}
@@ -310,7 +315,7 @@ fieldset.radio label{display:flex;gap:9px;align-items:center;font-size:14px;padd
 .tblwrap{overflow-x:auto;border:1px solid var(--rule);border-radius:0;background:var(--sheet)}
 table.data{width:100%;border-collapse:collapse;font-size:14px;min-width:520px}
 table.data th{background:var(--navy);color:#fff;text-align:left;padding:13px 16px;
-  font-size:11.5px;letter-spacing:0;text-transform:uppercase;font-weight:700}
+  font-size:11.5px;letter-spacing:0;text-transform:uppercase;font-weight:500}
 table.data td{padding:12px 16px;border-top:1px solid var(--line);color:var(--ink);vertical-align:top}
 
 /* ── Footer ── */
@@ -320,7 +325,7 @@ footer.site .top{display:grid;grid-template-columns:1.5fr 1fr 1.2fr 1.2fr;
   gap:clamp(24px,3.4vw,48px);padding:clamp(44px,6vw,72px) 0 34px}
 footer.site h4{color:#fff;font-size:11.5px;letter-spacing:0;text-transform:uppercase;
   font-family:var(--font-body);font-weight:800;margin-bottom:16px}
-footer.site .fbrand{font-family:var(--font-display);color:#fff;font-weight:800;
+footer.site .fbrand{font-family:var(--font-brand);color:#fff;font-weight:700;
   text-transform:uppercase;font-size:19px;margin-bottom:12px}
 footer.site .fsub{font-size:13px;letter-spacing:0;color:var(--lime);font-weight:600;margin-bottom:14px}
 footer.site p{font-size:14px;max-width:40ch}
@@ -598,10 +603,11 @@ NAV_STYLE = r"""
     text-decoration: none;
   }
   .clean-brand-name {
+    font-family: var(--serif, "Libre Baskerville", Georgia, serif);
     font-size: 26px;
     font-weight: 700;
     color: #2b2b2b;
-    letter-spacing: -0.5px;
+    letter-spacing: 0;
   }
 
   /* 3. Navigation Links (inside the brand band) */
@@ -944,10 +950,11 @@ FOOTER_STYLE = r"""
     }
 
     .connect-footer-brand-title {
+      font-family: var(--serif, "Libre Baskerville", Georgia, serif);
       font-size: 20px;
       font-weight: 700;
       color: #ffffff;
-      letter-spacing: -0.2px;
+      letter-spacing: 0;
     }
 
     .connect-footer-desc {
@@ -1181,7 +1188,7 @@ def shell(fname, title, desc, body, active, with_drop=False, extra_head=""):
 <link rel="canonical" href="{SITE_URL}{fname if fname != 'index.html' else ''}">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/style.css">
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
 {extra_head}
