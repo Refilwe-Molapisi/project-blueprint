@@ -491,40 +491,445 @@ NAV = [
     ("contact.html", "Contact"),
 ]
 
+# Pages that belong to the services section: when one of them is active, the
+# "Services" nav item carries the pill and the mega-menu highlights the page.
+SERVICE_PAGES = {
+    "business-intelligence-performance-analytics.html",
+    "economic-commercial-intelligence.html",
+    "operational-risk-process-controls.html",
+    "business-data-diagnostic.html",
+    "business-intelligence-dashboard.html",
+    "monthly-performance-reporting.html",
+    "competitor-intelligence-snapshot.html",
+    "pricing-profitability-review.html",
+    "supplier-cost-watch.html",
+    "operational-risk-register.html",
+    "process-controls-diagnostic.html",
+    "compliance-evidence-organiser.html",
+}
+
+MEGA_COLS = [
+    ("Advisory Divisions", [
+        ("services.html", "Services Overview"),
+        ("business-intelligence-performance-analytics.html", "Business Intelligence &amp; Performance Analytics"),
+        ("economic-commercial-intelligence.html", "Economic &amp; Commercial Intelligence"),
+        ("operational-risk-process-controls.html", "Operational Risk, Process &amp; Controls Advisory"),
+    ]),
+    ("Intelligence &amp; Reporting", [
+        ("business-data-diagnostic.html", "Business Data Diagnostic"),
+        ("business-intelligence-dashboard.html", "Business Intelligence Dashboard"),
+        ("monthly-performance-reporting.html", "Monthly Performance Reporting"),
+        ("competitor-intelligence-snapshot.html", "Competitor Intelligence Snapshot"),
+    ]),
+    ("Commercial, Risk &amp; Controls", [
+        ("pricing-profitability-review.html", "Pricing &amp; Profitability Review"),
+        ("supplier-cost-watch.html", "Supplier Cost Watch"),
+        ("operational-risk-register.html", "Operational Risk Register"),
+        ("process-controls-diagnostic.html", "Process &amp; Controls Diagnostic"),
+        ("compliance-evidence-organiser.html", "Compliance Evidence Organiser"),
+    ]),
+]
+
+# Scoped CSS for the 3-tier navigation bar (Cleanify style). Kept out of
+# assets/style.css on purpose: the navbar is self-contained.
+NAV_STYLE = r"""
+  .cleanify-navbar {
+    background: #ffffff;
+    font-family: var(--font-body, "Montserrat", sans-serif);
+    color: #333333;
+    border-bottom: 1px solid #eaeaea;
+    position: relative;
+    z-index: 999;
+  }
+  .clean-container {
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+
+  /* 1. Topbar */
+  .clean-topbar {
+    border-bottom: 1px solid #f0f0f0;
+    font-size: 11.5px;
+    color: #e04436;
+    padding: 7px 0;
+  }
+  .clean-topbar-inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .clean-topbar-left, .clean-topbar-right {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+  .clean-topbar-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    color: #e04436;
+    text-decoration: none;
+    font-weight: 500;
+  }
+  .clean-topbar-item:hover {
+    color: #c02d20;
+    text-decoration: none;
+  }
+  .clean-topbar-right .clean-topbar-item {
+    color: #777777;
+  }
+  .clean-lang-switch {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    color: #e04436;
+    cursor: pointer;
+    font-weight: 500;
+  }
+  .clean-lang-switch .chevron {
+    font-size: 9px;
+  }
+
+  /* 2. Midbar */
+  .clean-midbar {
+    padding: 16px 0;
+  }
+  .clean-midbar-inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .clean-brand {
+    display: inline-flex;
+    align-items: center;
+    text-decoration: none;
+  }
+  .clean-brand:hover {
+    text-decoration: none;
+  }
+  .clean-brand-circle {
+    display: inline-grid;
+    place-items: center;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    border: 2px solid #e04436;
+    color: #e04436;
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 1;
+    margin-right: 6px;
+  }
+  .clean-brand-name {
+    font-size: 26px;
+    font-weight: 700;
+    color: #2b2b2b;
+    letter-spacing: -0.5px;
+  }
+  .clean-brand-divider {
+    margin: 0 12px;
+    color: #cccccc;
+    font-weight: 300;
+    font-size: 20px;
+  }
+  .clean-brand-tagline {
+    font-size: 13.5px;
+    color: #777777;
+    font-weight: 400;
+  }
+  .clean-search-box {
+    display: flex;
+    align-items: center;
+    background: #f4f4f4;
+    border: 1px solid #e6e6e6;
+    border-radius: 24px;
+    padding: 5px 14px;
+    width: 210px;
+  }
+  .clean-search-box input {
+    border: none;
+    background: transparent;
+    font-size: 12px;
+    font-style: italic;
+    color: #666;
+    outline: none;
+    width: 100%;
+    padding: 2px 0;
+  }
+  .clean-search-box button {
+    border: none;
+    background: transparent;
+    color: #444;
+    cursor: pointer;
+    padding: 0;
+    display: grid;
+    place-items: center;
+  }
+
+  /* 3. Nav Row */
+  .clean-navrow {
+    border-top: 1px solid #f0f0f0;
+    background: #ffffff;
+    position: relative;
+  }
+  .clean-nav-inner {
+    display: flex;
+    justify-content: center;
+  }
+  .clean-menu {
+    list-style: none;
+    display: flex;
+    align-items: center;
+    margin: 0;
+    padding: 8px 0;
+    gap: 12px;
+  }
+  .clean-menu-item {
+    position: relative;
+  }
+  .clean-link {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    color: #666666;
+    padding: 8px 14px;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    text-decoration: none;
+    border-radius: 4px;
+    transition: color 0.15s ease;
+  }
+  .clean-link .arrow {
+    font-size: 9px;
+  }
+  .clean-link:hover {
+    color: #e04436;
+    text-decoration: none;
+  }
+
+  /* Active Pill */
+  .clean-pill-active {
+    background: #e04436 !important;
+    color: #ffffff !important;
+    border-radius: 20px !important;
+    padding: 8px 18px !important;
+  }
+  .clean-pill-active:hover {
+    background: #c02d20 !important;
+    color: #ffffff !important;
+  }
+
+  /* Mega Menu Dropdown */
+  .clean-megamenu {
+    display: none;
+    position: absolute;
+    top: calc(100% + 8px);
+    left: 50%;
+    transform: translateX(-50%);
+    background: #ffffff;
+    border: 1px solid #e2e2e2;
+    border-radius: 2px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+    padding: 24px 30px;
+    width: 620px;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 28px;
+    z-index: 1000;
+  }
+  /* Show mega menu on hover */
+  .clean-menu-item.has-dropdown:hover .clean-megamenu,
+  .clean-menu-item.has-dropdown:focus-within .clean-megamenu {
+    display: grid;
+  }
+  .clean-mega-col h4 {
+    font-size: 14px;
+    font-weight: 700;
+    color: #2b2b2b;
+    margin: 0 0 16px 0;
+  }
+  .clean-mega-col ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 12px;
+  }
+  .clean-mega-col ul li a {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    font-size: 12.5px;
+    color: #666666;
+    text-decoration: none;
+    transition: color 0.15s ease;
+  }
+  .clean-mega-col ul li a .dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    border: 1.5px solid #888888;
+    display: inline-block;
+    flex-shrink: 0;
+  }
+  .clean-mega-col ul li a:hover {
+    color: #e04436;
+    text-decoration: none;
+  }
+  .clean-mega-col ul li a:hover .dot {
+    border-color: #e04436;
+  }
+  /* Highlighted active item in list */
+  .clean-mega-col ul li.highlighted a {
+    color: #e04436;
+    font-weight: 600;
+  }
+  .clean-mega-col ul li.highlighted a .dot {
+    border-color: #e04436;
+  }
+
+  /* Responsive layout */
+  @media (max-width: 900px) {
+    .clean-topbar-inner, .clean-midbar-inner {
+      flex-direction: column;
+      gap: 10px;
+      text-align: center;
+    }
+    .clean-menu {
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .clean-megamenu {
+      position: static;
+      transform: none;
+      width: 100%;
+      grid-template-columns: 1fr;
+      box-shadow: none;
+      border: 1px solid #eee;
+      padding: 16px;
+    }
+  }
+
+  /* Site-specific fix: the skip link (styled by style.css) must stay above the
+     navbar's z-index so it is visible when focused. */
+  .skip {
+    z-index: 1001;
+  }
+"""
+
 def header(active, with_drop=False):
-    links = []
+    nav_files = [f for f, _ in NAV]
+    pill = active if active in nav_files else (
+        "services.html" if active in SERVICE_PAGES else None)
+
+    items = []
     for f, label in NAV:
-        cur = ' aria-current="page"' if f == active else ""
-        if f == "services.html" and with_drop:
-            links.append(
-                f'<details class="dropdown"><summary aria-current="page"><a href="services.html"{cur}>Services</a></summary>'
-                f'<div class="dropdown-menu">'
-                f'<span class="group">Divisions</span>'
-                f'<a href="business-intelligence-performance-analytics.html">01 · Business Intelligence &amp; Performance Analytics</a>'
-                f'<a href="economic-commercial-intelligence.html">02 · Economic &amp; Commercial Intelligence</a>'
-                f'<a href="operational-risk-process-controls.html">03 · Operational Risk, Process &amp; Controls</a>'
-                f'<span class="group">Popular services</span>'
-                f'<a href="business-data-diagnostic.html">Business Data Diagnostic</a>'
-                f'<a href="competitor-intelligence-snapshot.html">Competitor Intelligence Snapshot</a>'
-                f'<a href="operational-risk-register.html">Operational Risk Register</a>'
-                f'</div></details>')
+        cur = ' aria-current="page"' if f == pill else ""
+        if f == pill:
+            li_cls = "clean-menu-item has-dropdown is-active" if f == "services.html" \
+                else "clean-menu-item is-active"
+            a_cls = "clean-link clean-pill-active"
         else:
-            links.append(f'<a href="{f}"{cur}>{label}</a>')
-    return f"""<header class="site">
-  <a class="skip" href="#main">Skip to content</a>
-  <div class="wrap navrow">
-    <a class="brand" href="index.html">{LOGO_SVG}
-      <span>{COMPANY_NAME}<small>Business Advisory · Intelligence · Research</small></span></a>
-    <button class="menu-toggle" aria-expanded="false" aria-controls="mainnav">Menu</button>
-    <nav class="main" id="mainnav" aria-label="Main navigation">
-      {''.join(links)}
-      <div class="navcta">
-        <a class="btn btn-primary btn-sm" href="contact.html">Discuss Your Business Needs</a>
-        <a class="loginlink" href="client-portal.html">Client Login</a>
+            li_cls = "clean-menu-item has-dropdown" if f == "services.html" \
+                else "clean-menu-item"
+            a_cls = "clean-link"
+        if f == "services.html":
+            cols = []
+            for heading, links in MEGA_COLS:
+                lis = []
+                for href, text in links:
+                    hl = ' class="highlighted"' if href == active else ""
+                    lis.append(f'''
+                  <li{hl}><a href="{href}"><span class="dot"></span> {text}</a></li>''')
+                cols.append(f'''
+            <div class="clean-mega-col">
+              <h4>{heading}</h4>
+              <ul>{''.join(lis)}
+              </ul>
+            </div>''')
+            items.append(f'''        <li class="{li_cls}">
+          <a href="{f}" class="{a_cls}"{cur}>{label} <span class="arrow">▾</span></a>
+          <div class="clean-megamenu">{''.join(cols)}
+          </div>
+        </li>''')
+        else:
+            items.append(f'''        <li class="{li_cls}">
+          <a href="{f}" class="{a_cls}"{cur}>{label}</a>
+        </li>''')
+
+    return f"""<!-- ========================================================= -->
+<!-- 3-TIER NAVIGATION BAR (Cleanify Style)                      -->
+<!-- Self-contained: works directly without modifying style.css -->
+<!-- ========================================================= -->
+<a class="skip" href="#main">Skip to content</a>
+<header class="cleanify-navbar">
+  <!-- 1. Top Utility Bar -->
+  <div class="clean-topbar">
+    <div class="clean-container clean-topbar-inner">
+      <div class="clean-topbar-left">
+        <a href="tel:{COMPANY_PHONE}" class="clean-topbar-item">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+          </svg>
+          <span>{COMPANY_PHONE}</span>
+        </a>
+        <a href="mailto:{COMPANY_EMAIL}" class="clean-topbar-item">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect width="20" height="16" x="2" y="4" rx="2"/>
+            <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
+          </svg>
+          <span>{COMPANY_EMAIL}</span>
+        </a>
       </div>
-    </nav>
+
+      <div class="clean-topbar-right">
+        <a href="client-portal.html" class="clean-topbar-item">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>
+          </svg>
+          <span>Client Login</span>
+        </a>
+      </div>
+    </div>
   </div>
-</header>"""
+
+  <!-- 2. Brand & Search Mid-Bar -->
+  <div class="clean-midbar">
+    <div class="clean-container clean-midbar-inner">
+      <a href="index.html" class="clean-brand">
+        <span class="clean-brand-icon">{LOGO_SVG}</span>
+        <span class="clean-brand-name">{COMPANY_NAME}</span>
+        <span class="clean-brand-divider">|</span>
+        <span class="clean-brand-tagline">Business Advisory · Intelligence · Research</span>
+      </a>
+
+      <div class="clean-search-box">
+        <input type="text" placeholder="search here" aria-label="Search">
+        <button type="submit" aria-label="Submit search">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/>
+          </svg>
+        </button>
+      </div>
+
+      <a class="btn btn-primary btn-sm" href="contact.html">Discuss Your Business Needs</a>
+    </div>
+  </div>
+
+  <!-- 3. Navigation Links Row -->
+  <nav class="clean-navrow" aria-label="Main navigation">
+    <div class="clean-container clean-nav-inner">
+      <ul class="clean-menu">
+{chr(10).join(items)}
+      </ul>
+    </div>
+  </nav>
+</header>
+
+<!-- Scoped CSS for the new navigation bar (leave style.css untouched) -->
+<style>{NAV_STYLE}</style>"""
 
 def footer():
     return f"""<footer class="site">
